@@ -16,9 +16,8 @@ export default function BlogContent(){
       const parts = slug?.split("/");
       const id = parts[parts.length - 1];
       console.log(id);
-    const pageData = await notionClient.pages.query({
+    const pageData = await notionClient.pages.retrieve({
       page_id: id,
-     
     });
 
       console.log(pageData);
