@@ -2,6 +2,7 @@
 import { Client } from "@notionhq/client"
 import Image from "next/image"
 import Link from "next/link"
+import { useEffect } from "react"
 
 
 const NOTION_BLOG_ID = process.env.NEXT_PUBLIC_NOTION_BLOG_ID
@@ -26,6 +27,10 @@ export async function getAllPosts(){
 
 export async function getStaticProps(){
   const posts = await getAllPosts();
+  const pageData = await notionClient.blocks.children.list({
+    block_id: '4bbd0927-fdef-4654-8c4e-8b4707bcf427'
+    });
+    console.log("page data = ",pageData);
   return{
     props:{
       posts:posts
@@ -35,7 +40,6 @@ export async function getStaticProps(){
 
 export default function Home({posts}){
   console.log(posts);
-
   return (
     <main className="min-h-screen w-full bg-[#fff6ed] p-4">
       <div className="flex justify-center items-center">
@@ -69,7 +73,7 @@ export default function Home({posts}){
                     key={index}
                     className="flex flex-col justify-center items-center hover:cursor-pointer text-xl font-semibold text-black"
                   >
-                    <Link href={post?.id} replace>
+                    <Link href="/[slug]" as={`/${post?.id}`} replace>
                       <Image
                         width={270 * 2}
                         height={100}

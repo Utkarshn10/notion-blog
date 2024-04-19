@@ -6,30 +6,35 @@ const NOTION_BLOG_ID = process.env.NEXT_PUBLIC_NOTION_BLOG_ID
 const NOTION_KEY = process.env.NEXT_PUBLIC_NOTION_KEY
 const notionClient = new Client({auth: NOTION_KEY})
 
-export default function BlogContent(){
-    const router = useRouter();
-    const [postData, setPostData] = useState({})
 
-    const getData = async () => {
-      const { slug } = router.query;
-      console.log(router.query, " ", slug);
-      const parts = slug?.split("/");
-      const id = parts[parts.length - 1];
-      console.log(id);
-    const pageData = await notionClient.pages.retrieve({
-      page_id: id,
+export async function getStaticPaths(){
+    const allPosts = await notionClient.databases.query({database_id: NOTION_BLOG_ID})
+    const paths = allPosts?.results?.map((post) => {
+      return {
+        params: { slug: post.id },
+      };
     });
+    console.log("paths =",paths)
+    return { paths, fallback: false }
+}
 
-      console.log(pageData);
-      setPostData(pageData);
-    };
-
-    useEffect(()=>{
-        if(router.query.slug){
-          getData();
+export async function getStaticProps({params}){
+    const {slug} = params
+    console.log("slug = ",slug)
+    const pageData = await notionClient.blocks.children.list({
+      block_id: slug, // Assuming slug is the ID you want to pass
+    });
+    console.log("page data = ",pageData);
+    
+    return {
+        props: {
+            pageData:pageData
         }
-    },[router.query.slug])
-    console.log(postData)
+    };
+}
+
+export default function BlogContent({pageData}){
+    console.log(pageData)
     return(
         <main className="min-h-screen">
             <section className="">
