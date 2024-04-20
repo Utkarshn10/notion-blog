@@ -50,20 +50,22 @@ export default function BlogContent({pageData,metaData}){
         return formattedDate;
     }
 
-    return(
-        <main className="min-h-screen w-full bg-[#fff6ed]">
-            <section className="py-2 px-8 text-stone-700">
-            <Image
-                width={270 * 4}
-                height={100}
-                priority
-                src={metaData?.heroImage}
-                alt={metaData?.slug}
-                className="rounded-xl"
-            />
-            <p className="font-semibold my-4">{convertDate(metaData?.date)}</p>
-            <ReactMarkdown className="my-6">{pageData?.parent}</ReactMarkdown>
-            </section>
-        </main>
-    )
+    return (
+      <main className="min-h-screen w-full bg-[#fff6ed] flex items-center justify-center">
+        <section className="py-2 px-8 text-stone-700 w-4/5">
+          <Image
+            width={270 * 4}
+            height={100}
+            priority
+            src={metaData?.heroImage}
+            alt={metaData?.slug}
+            className="rounded-xl border border-yellow-400"
+          />
+          <p className="font-semibold my-4">{convertDate(metaData?.date)}</p>
+          <ReactMarkdown className="my-6 leading-relaxed">
+            {pageData?.parent}
+          </ReactMarkdown>
+        </section>
+      </main>
+    );
 }
