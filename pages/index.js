@@ -1,5 +1,5 @@
 
-import HeroSection from "@/components/hero"
+import HeroSection from "@/components/Hero"
 import getDataFromObject from "@/utils/getObject"
 import { Client } from "@notionhq/client"
 import Image from "next/image"
@@ -12,7 +12,15 @@ const NOTION_KEY = process.env.NEXT_PUBLIC_NOTION_KEY
 
 const notionClient = new Client({auth: NOTION_KEY})
 export async function getAllPosts(){
-  const allPosts = await notionClient.databases.query({database_id: NOTION_BLOG_ID})
+  const allPosts = await notionClient.databases.query({
+    database_id: NOTION_BLOG_ID,
+    filter: {
+      property: 'Published',
+      checkbox: {
+        equals: true,
+      },
+    },
+  });
   const allData = allPosts?.results?.map((post) => {
       return getDataFromObject(post)
       })
@@ -29,12 +37,11 @@ export async function getStaticProps(){
 }
 
 export default function Home({posts}){
-  console.log(posts);
   return (
-    <main className="min-h-screen w-full bg-[#fff6ed] px-4">
+    <main className="min-h-screen w-full  px-4">
       <div className="flex justify-center items-center flex-col w-full">
          <HeroSection />
-        <div className="flex flex-col w-full md:w-3/4">
+        <div className="flex flex-col w-full md:w-4/5">
           <section>
             <div className="flex flex-col space-y-4">
               <p className="indent-4 antialiase tracking-normal text-stone-600">
@@ -73,7 +80,7 @@ export default function Home({posts}){
                         alt={post?.slug}
                         className="rounded-xl border border-yellow-200"
                       />
-                      <h2 className="my-4 flex text-center  text-xl font-semibold text-stone-700">
+                      <h2 className="my-4 flex text-center text-lg font-semibold text-stone-700">
                         {post?.title}
                       </h2>
                     </Link>

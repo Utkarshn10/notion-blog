@@ -5,6 +5,7 @@ import { NotionToMarkdown } from "notion-to-md"
 import ReactMarkdown from 'react-markdown'
 import getDataFromObject from "@/utils/getObject"
 import Image from "next/image"
+import Head from "next/head"
 
 const NOTION_BLOG_ID = process.env.NEXT_PUBLIC_NOTION_BLOG_ID
 const NOTION_KEY = process.env.NEXT_PUBLIC_NOTION_KEY
@@ -51,8 +52,9 @@ export default function BlogContent({pageData,metaData}){
     }
 
     return (
-      <main className="min-h-screen w-full bg-[#fff6ed] flex items-center justify-center">
-        <section className="py-2 px-8 text-stone-700 w-4/5">
+      <main className="min-h-screen w-full bg-[#fff6ed]">
+        <Head></Head>
+        <section className="py-2 px-8 text-stone-700">
           <Image
             width={270 * 4}
             height={100}
@@ -61,7 +63,10 @@ export default function BlogContent({pageData,metaData}){
             alt={metaData?.slug}
             className="rounded-xl border border-yellow-400"
           />
-          <p className="font-semibold my-4">{convertDate(metaData?.date)}</p>
+          <div className="my-4 flex space-y-2 flex-col pb-2 border-b border-yellow-500">
+            <h1 className="font-bold text-3xl">{metaData?.title}</h1>
+            <p className="font-semibold ">{convertDate(metaData?.date)}</p>
+          </div>
           <ReactMarkdown className="my-6 leading-relaxed">
             {pageData?.parent}
           </ReactMarkdown>

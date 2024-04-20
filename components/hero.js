@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function HeroSection(){
     return (
-      <section class="relative mb-6 h-80 flex justify-center items-center">
+      <section class="relative mb-6 h-80 flex justify-center items-center w-full">
         <div
           class="absolute w-full h-full overflow-hidden"
           style={{ opacity: 0.5 }}
@@ -12,7 +12,7 @@ export default function HeroSection(){
             className="rounded-lg"
             quality={100}
             fill
-            sizes="100vw"
+            sizes="200vw"
             alt="hero-image"
             style={{
               objectFit: "cover",
