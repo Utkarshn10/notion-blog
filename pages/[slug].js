@@ -1,3 +1,4 @@
+'use client'
 import { useRouter } from "next/router"
 import { Client } from "@notionhq/client"
 import { useEffect, useState } from "react"
@@ -6,6 +7,9 @@ import ReactMarkdown from 'react-markdown'
 import getDataFromObject from "@/utils/getObject"
 import Image from "next/image"
 import Head from "next/head"
+import remarkGfm from 'remark-gfm'
+import dynamic from "next/dynamic"
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 const NOTION_BLOG_ID = process.env.NEXT_PUBLIC_NOTION_BLOG_ID
 const NOTION_KEY = process.env.NEXT_PUBLIC_NOTION_KEY
@@ -52,9 +56,9 @@ export default function BlogContent({pageData,metaData}){
     }
 
     return (
-      <main className="min-h-screen w-full bg-[#fff6ed]">
+      <main className="min-h-screen w-full bg-[#fff6ed] flex items-center justify-center">
         <Head></Head>
-        <section className="py-2 px-8 text-stone-700">
+        <section className="py-2 px-8 text-stone-700 w-4/5">
           <Image
             width={270 * 4}
             height={100}
@@ -63,11 +67,47 @@ export default function BlogContent({pageData,metaData}){
             alt={metaData?.slug}
             className="rounded-xl border border-yellow-400"
           />
-          <div className="my-4 flex space-y-2 flex-col pb-2 border-b border-yellow-500">
+          <div className="my-4 flex space-y-2 flex-col border-b pb-4 border-yellow-500">
             <h1 className="font-bold text-3xl">{metaData?.title}</h1>
             <p className="font-semibold ">{convertDate(metaData?.date)}</p>
           </div>
-          <ReactMarkdown className="my-6 leading-relaxed">
+          <ReactMarkdown
+            className="my-6 leading-relaxed"
+            remarkPlugins={[remarkGfm]}
+            components={{
+              code({ node, inline, className, children, ...props }) {
+                const match = /language-(\w+)/.exec(className || '');
+      
+                return !inline && match ? (
+                  <SyntaxHighlighter
+                    PreTag="div"
+                    language={match[1]}
+                    {...props}
+                  >
+                    {String(children).replace(/\n$/, "")}
+                  </SyntaxHighlighter>
+                ) : (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                );
+              },
+            
+              h1: ({ node, ...props }) => (
+                <h1 {...props} className="font-bold text-2xl mt-4 mb-2" />
+              ),
+              h2: ({ node, ...props }) => (
+                <h2 {...props} className="font-bold text-xl mt-4 mb-2" />
+              ),
+              h3: ({ node, ...props }) => (
+                <h3 {...props} className="font-bold text-lg mt-4 mb-2" />
+              ),
+              p: ({ node, ...props }) => <p {...props} className="my-4" />,
+              a: ({ node, ...props }) => (
+                <a {...props} className="text-blue-500" />
+              ),
+            }}
+          >
             {pageData?.parent}
           </ReactMarkdown>
         </section>
