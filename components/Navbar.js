@@ -3,7 +3,7 @@ import { Github } from 'lucide-react';
 
 export default function Navbar(){
     return (
-      <div className="h-10 m-4 flex flex-row space-x-6 px-4 rounded-xl">
+      <div className="h-10 m-4 flex flex-row space-x-6 px-4 rounded-xl text-stone-800">
         <h2 className="hover:cursor-pointer flex items-center">
           <Link href="" className="text-xl font-semibold">Utkarsh Nagar</Link>
         </h2>
