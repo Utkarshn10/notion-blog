@@ -57,7 +57,36 @@ export default function BlogContent({pageData,metaData}){
 
     return (
       <main className="min-h-screen w-full bg-[#fff6ed] flex items-center justify-center font-customfont">
-        <Head></Head>
+        <Head>
+          {/* Title */}
+          <title>{metaData?.title}</title>
+
+          {/* Open Graph (OG) tags */}
+          <meta property="og:title" content={metaData?.title} />
+          <meta property="og:image" content={metaData?.image} />
+          <meta property="og:url" content={metaData?.url} />
+          <meta property="og:type" content="article" />
+
+          {/* Twitter Card */}
+          <meta name="twitter:title" content={metaData?.title} />
+          <meta name="twitter:image" content={metaData?.image} />
+          <meta name="twitter:card" content="summary_large_image" />
+
+          {/* Canonical URL */}
+          <link rel="canonical" href={metaData?.url} />
+
+          {/* Viewport Meta Tag */}
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+          {/* Favicon */}
+          <link rel="icon" href="/favicon.ico" />
+
+          {/* CSS */}
+          <link rel="stylesheet" href="/styles.css" />
+
+          {/* JavaScript */}
+          <script src="/script.js" defer></script>
+        </Head>
         <section className="py-2 px-8 text-stone-700 w-4/5">
           <Image
             width={270 * 4}
@@ -76,8 +105,8 @@ export default function BlogContent({pageData,metaData}){
             remarkPlugins={[remarkGfm]}
             components={{
               code({ node, inline, className, children, ...props }) {
-                const match = /language-(\w+)/.exec(className || '');
-      
+                const match = /language-(\w+)/.exec(className || "");
+
                 return !inline && match ? (
                   <SyntaxHighlighter
                     PreTag="div"
@@ -92,7 +121,7 @@ export default function BlogContent({pageData,metaData}){
                   </code>
                 );
               },
-            
+
               h1: ({ node, ...props }) => (
                 <h1 {...props} className="font-bold text-2xl mt-4 mb-2" />
               ),

@@ -1,9 +1,12 @@
 
-import HeroSection from "@/components/hero"
+import HeroSection from "@/components/Hero"
 import getDataFromObject from "@/utils/getObject"
 import { Client } from "@notionhq/client"
+import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_AUTHOR, SITE_URL } from '@/utils/config'
+
 import { useEffect } from "react"
 
 
@@ -39,6 +42,34 @@ export async function getStaticProps(){
 export default function Home({posts}){
   return (
     <main className="min-h-screen w-full  px-4 font-customfont">
+       <Head>
+          {/* Title */}
+          <title>{SITE_TITLE}</title>
+
+          {/* Open Graph (OG) tags */}
+          <meta property="og:title" content={SITE_TITLE} />
+          <meta property="og:url" content={SITE_URL} />
+          <meta property="og:type" content="article" />
+
+          {/* Twitter Card */}
+          <meta name="twitter:title" content={SITE_TITLE} />
+          <meta name="twitter:card" content="summary_large_image" />
+
+          {/* Canonical URL */}
+          <link rel="canonical" href={SITE_URL} />
+
+          {/* Viewport Meta Tag */}
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+          {/* Favicon */}
+          <link rel="icon" href="/favicon.ico" />
+
+          {/* CSS */}
+          <link rel="stylesheet" href="/styles.css" />
+
+          {/* JavaScript */}
+          <script src="/script.js" defer></script>
+        </Head>
       <div className="flex justify-center items-center flex-col w-full">
          <HeroSection />
         <div className="flex flex-col w-full md:w-4/5">
@@ -57,10 +88,10 @@ export default function Home({posts}){
                 intersection of technology and storytelling, utilizing Notion as
                 my CMS to weave together my thoughts, experiences, and insights.
                 <Link
-                  className=""
+                  className="text-yellow-500"
                   href="https://www.sideprojectss.com/Utkarshn10"
                 >
-                  See what I am building{" "}
+                  {" "}See what I am building{" "}
                 </Link>
               </p>
             </div>
