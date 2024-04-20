@@ -1,5 +1,5 @@
 
-import HeroSection from "@/components/Hero"
+import HeroSection from "@/components/hero"
 import getDataFromObject from "@/utils/getObject"
 import { Client } from "@notionhq/client"
 import Head from "next/head"
