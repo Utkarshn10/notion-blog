@@ -56,7 +56,7 @@ export default function BlogContent({pageData,metaData}){
     }
 
     return (
-      <main className="min-h-screen w-full bg-[#fff6ed] flex items-center justify-center">
+      <main className="min-h-screen w-full bg-[#fff6ed] flex items-center justify-center font-customfont">
         <Head></Head>
         <section className="py-2 px-8 text-stone-700 w-4/5">
           <Image

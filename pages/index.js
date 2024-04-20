@@ -38,7 +38,7 @@ export async function getStaticProps(){
 
 export default function Home({posts}){
   return (
-    <main className="min-h-screen w-full  px-4">
+    <main className="min-h-screen w-full  px-4 font-customfont">
       <div className="flex justify-center items-center flex-col w-full">
          <HeroSection />
         <div className="flex flex-col w-full md:w-4/5">
