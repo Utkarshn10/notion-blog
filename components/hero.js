@@ -16,7 +16,7 @@ export default function HeroSection(){
             alt="hero-image"
             style={{
               objectFit: "cover",
-            }}  
+            }} 
             priority
           />
         </div>
