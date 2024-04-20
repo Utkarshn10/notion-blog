@@ -23,7 +23,7 @@ export default function HeroSection(){
         <div class="z-10 text-center px-8 drop-shadow-lg shadow-black">
           <div class="uppercase text-sm mb-4">Welcome to</div>
           <div class="text-4xl font-mplus font-medium">
-            Weekend Code&apos;s
+            Weekend Coder&apos;s
             <span className="text-yellow-500"> Chronicles</span>
           </div>
         </div>
