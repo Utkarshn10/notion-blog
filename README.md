@@ -18,7 +18,7 @@ My setup for personal blog using Notion as a CMS. It can be used as a boilerplat
   
 ```
 NEXT_PUBLIC_NOTION_KEY = YOUR_NOTION_KEY
-NEXT_PUBLIC_NOTION_BLOG_ID = YOUR_BLOG_DB_KEY
+NEXT_PUBLIC_NOTION_BLOG_ID = YOUR_BLOG_DB_ID
 ```
 
 ### Step 3 - Setting the config file 
