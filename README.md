@@ -1,6 +1,6 @@
 ## From Notion to Blog
 
-My setup for personal blog using Notion as a CMS. It can be used as a boilerplate for your blogs.
+Simple template for blogs using Notion as a CMS
 
 <img width="1037" alt="Screenshot 2024-04-21 at 12 34 05 PM" src="https://github.com/Utkarshn10/notion-blog/assets/58587256/5ce68b10-c086-4db5-9c22-12be26a9af7b">
 
